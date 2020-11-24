@@ -35,7 +35,7 @@ function appMenu() {
         message: "What is your manager's id?",
         validate: answer => {
           const pass = answer.match(
-            /^[1-9]\d*$/
+            /^[1-9]\d*$/ // the carrot means to asserst the position at start of string, the \d stands for numerical digit and the $ is for the end of the string.
           );
           if(pass) {
             return true;
