@@ -48,11 +48,29 @@ function appMenu() {
         name: 'managerEmail',
         message: "What is your manager's email?",
         validate: answer => {
-          consta pass = answer.match(
-            
-          )
+          const pass = answer.match(
+            /\S+@\S+\.\S+/ //grabbed this from the link that was given in class https://www.rexegg.com/regex-quickstart.html
+          );
+          if (pass) {
+            return true;
+          }
+          return true;
         }
+      },
+      {
+        type: 'input',
+        name: 'mangerOfficeNumber',
+        message: "What is your manager's office number?",
+        validate: answer => {
+          const pass = answer.match(
+          /^[1-9]\d*$/ //same as managers ID 
+        );
+        if (pass) {
+          return true;
+        }
+        return "Please enter a positive number greater than 0"
       }
+    }
       // YOUR CODE HERE:
       // CREATE OBJECTS OF QUESTIONS HERE FOR MANAGER
       //
