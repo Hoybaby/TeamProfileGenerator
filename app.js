@@ -40,9 +40,19 @@ function appMenu() {
           if(pass) {
             return true;
           }
-          return "Please enter a positive number grater than zero"
+          return "Please enter a positive number greater than zero"
         }
       },
+      {
+        type: 'input',
+        name: 'managerEmail',
+        message: "What is your manager's email?",
+        validate: answer => {
+          consta pass = answer.match(
+            
+          )
+        }
+      }
       // YOUR CODE HERE:
       // CREATE OBJECTS OF QUESTIONS HERE FOR MANAGER
       //
