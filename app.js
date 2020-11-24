@@ -18,7 +18,31 @@ function appMenu() {
   function createManager() {
     console.log("Please build your team");
     inquirer.prompt([
-      //
+      {
+        type: 'input',
+        name: 'managerName',
+        message: "What is your manager's name?",
+        validate: answer => {
+          if (answer !== "") {
+            return true;
+          }
+          return "Please enter at least on character.";
+        }
+      },
+      {
+        type: "input",
+        name: 'managerID',
+        message: "What is your manager's id?",
+        validate: answer => {
+          const pass = answer.match(
+            /^[1-9]\d*$/
+          );
+          if(pass) {
+            return true;
+          }
+          return "Please enter a positive number grater than zero"
+        }
+      },
       // YOUR CODE HERE:
       // CREATE OBJECTS OF QUESTIONS HERE FOR MANAGER
       //
