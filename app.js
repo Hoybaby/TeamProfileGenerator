@@ -5,8 +5,8 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 ​
-const OUTPUT_DIR = path.resolve(__dirname, "output")
-const outputPath = path.join(OUTPUT_DIR, "team.html");
+const OUTPUT_DIR = path.resolve(__dirname, "output")//this is directing the folder to place the information from building my team. the path.
+const outputPath = path.join(OUTPUT_DIR, "team.html");//this is actually where the information are applying is going INSIDE that folder
 ​
 const render = require("./lib/htmlRenderer");
 ​
@@ -22,55 +22,23 @@ function appMenu() {
         type: 'input',
         name: 'managerName',
         message: "What is your manager's name?",
-        validate: answer => {
-          if (answer !== "") {
-            return true;
-          }
-          return "Please enter at least on character.";
-        }
+        //
       },
       {
         type: "input",
         name: 'managerID',
-        message: "What is your manager's id?",
-        validate: answer => {
-          const pass = answer.match(
-            /^[1-9]\d*$/ // the carrot means to asserst the position at start of string, the \d stands for numerical digit and the $ is for the end of the string.
-          );
-          if(pass) {
-            return true;
-          }
-          return "Please enter a positive number greater than zero"
-        }
+        message: "What is your manager's id?", 
       },
       {
         type: 'input',
         name: 'managerEmail',
         message: "What is your manager's email?",
-        validate: answer => {
-          const pass = answer.match(
-            /\S+@\S+\.\S+/ //grabbed this from the link that was given in class https://www.rexegg.com/regex-quickstart.html
-          );
-          if (pass) {
-            return true;
-          }
-          return true;
-        }
       },
       {
         type: 'input',
         name: 'mangerOfficeNumber',
-        message: "What is your manager's office number?",
-        validate: answer => {
-          const pass = answer.match(
-          /^[1-9]\d*$/ //same as managers ID 
-        );
-        if (pass) {
-          return true;
-        }
-        return "Please enter a positive number greater than 0"
+        message: "What is your manager's office number?"
       }
-    }
       // YOUR CODE HERE:
       // CREATE OBJECTS OF QUESTIONS HERE FOR MANAGER
       //
@@ -81,7 +49,9 @@ function appMenu() {
       createTeam();
     });
   }
-​
+​//when i create manager it is done then you need to make a team
+//line 48 envokes the function create team which is going to list the.
+//.then
   function createTeam() {
 ​
     inquirer.prompt([
@@ -111,13 +81,36 @@ function appMenu() {
 ​
   function addEngineer() {
     inquirer.prompt([
-      //
+      {
+        type: 'input',
+        name: 'engineerName',
+        message: "What is your Engineer's name?",
+        //
+      },
+      {
+        type: "input",
+        name: 'engineerID',
+        message: "What is your engineer's id?", 
+      },
+      {
+        type: 'input',
+        name: 'engineerEmail',
+        message: "What is your engineer's email?",
+      },
+      {
+        type: 'input',
+        name: 'engineerGithub',
+        message: "What is your Engineer's Github username?"
+      }
       // YOUR CODE HERE
       // CREATE OBJECTS OF QUESTIONS FOR ENGINEER
       //
     ]).then(answers => {
-      //
-      // YOUR CODE HERE
+      const engineer = new engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);//fix later
+      teamMembers.push(manager);
+      idArray.push(answers.managerId);
+      // createTeam();
+      // // YOUR CODE HERE
       // 1. CREATE A VARIABLE TO STORE THE ENGINEER OBJECT INSTANTIATED WITH THE ENGINEER CLASS, PASSING ANSWERS PROPERTIES AS INPUT AURGUMENTS 
       //    TO THE ENGINEER CLASS CONSTRUCTOR
       // 2. ADD (PUSH) THE ENGINEER VARIABLE TO the teamMembers ARRAY
@@ -146,13 +139,13 @@ function appMenu() {
       createTeam();
     });
   }
-​
+​//we are actually writing a file
   function buildTeam() {
     // Create the output directory if the output path doesn't exist
     if (!fs.existsSync(OUTPUT_DIR)) {
       fs.mkdirSync(OUTPUT_DIR)
     }
-    fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
+    fs.writeFileSync(outputPath, render(teamMembers), "utf-8"); //we need the file name and the data. outpath is path reffering to where we want to place our data
   }
 ​
   createManager();
