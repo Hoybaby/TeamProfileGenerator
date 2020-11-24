@@ -123,6 +123,26 @@ function appMenu() {
 ​
   function addIntern() {
     inquirer.prompt([
+      {
+        type: 'input',
+        name: 'internName',
+        message: "What is your Intern's name?",
+      },
+      {
+        type: "input",
+        name: 'internID',
+        message: "What is your Intern's id?", 
+      },
+      {
+        type: 'input',
+        name: 'internEmail',
+        message: "What is your intern's email?",
+      },
+      {
+        type: 'input',
+        name: 'internSchool',
+        message: "What school is your Intern attending?"
+      }
       //
       // YOUR CODE HERE
       // CREATE OBJECTS OF QUESTIONS FOR ENGINEER
