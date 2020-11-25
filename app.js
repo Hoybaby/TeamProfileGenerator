@@ -4,17 +4,17 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-​
+
 const OUTPUT_DIR = path.resolve(__dirname, "output")//this is directing the folder to place the information from building my team. the path.
 const outputPath = path.join(OUTPUT_DIR, "team.html");//this is actually where the information are applying is going INSIDE that folder
-​
+
 const render = require("./lib/htmlRenderer");
-​
+
 const teamMembers = [];
 const idArray = [];
-​
+
 function appMenu() {
-​
+
   function createManager() {
     console.log("Please build your team");
     inquirer.prompt([
@@ -33,12 +33,25 @@ function appMenu() {
         type: 'input',
         name: 'managerEmail',
         message: "What is your manager's email?",
+        validate: function (email) {
+  
+          valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+
+          if (valid) {
+            console.log("Great job");
+              return true;
+          } else {
+              console.log("Please enter a valid email")
+              return false;
+          }
+        }
       },
       {
         type: 'input',
-        name: 'mangerOfficeNumber',
+        name: 'managerOfficeNumber',
         message: "What is your manager's office number?"
       }
+      
       // YOUR CODE HERE:
       // CREATE OBJECTS OF QUESTIONS HERE FOR MANAGER
       //
@@ -49,11 +62,11 @@ function appMenu() {
       createTeam();
     });
   }
-​//when i create manager it is done then you need to make a team
+  //when i create manager it is done then you need to make a team
 //line 48 envokes the function create team which is going to list the.
 //.then
   function createTeam() {
-​
+
     inquirer.prompt([
       {
         type: "list",
@@ -78,7 +91,7 @@ function appMenu() {
       }
     });
   }
-​
+
   function addEngineer() {
     inquirer.prompt([
       {
@@ -96,6 +109,18 @@ function appMenu() {
         type: 'input',
         name: 'engineerEmail',
         message: "What is your engineer's email?",
+        validate: function (email) {
+  
+          valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+
+          if (valid) {
+            console.log("Great job");
+              return true;
+          } else {
+              console.log("Please enter a valid email")
+              return false;
+          }
+        }
       },
       {
         type: 'input',
@@ -108,7 +133,7 @@ function appMenu() {
     ]).then(answers => {
       const engineer = new engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);//fix later
       teamMembers.push(manager);
-      idArray.push(answers.managerId);
+      idArray.push(answers.engineerId);
       // createTeam();
       // // YOUR CODE HERE
       // 1. CREATE A VARIABLE TO STORE THE ENGINEER OBJECT INSTANTIATED WITH THE ENGINEER CLASS, PASSING ANSWERS PROPERTIES AS INPUT AURGUMENTS 
@@ -120,7 +145,7 @@ function appMenu() {
       createTeam();
     });
   }
-​
+
   function addIntern() {
     inquirer.prompt([
       {
@@ -137,13 +162,25 @@ function appMenu() {
         type: 'input',
         name: 'internEmail',
         message: "What is your intern's email?",
+        validate: function (email) {
+  
+          valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+
+          if (valid) {
+            console.log("Great job");
+              return true;
+          } else {
+              console.log("Please enter a valid email")
+              return false;
+          }
+        }
       },
       {
         type: 'input',
         name: 'internSchool',
         message: "What school is your Intern attending?"
       }
-      //
+    //
       // YOUR CODE HERE
       // CREATE OBJECTS OF QUESTIONS FOR ENGINEER
       //
@@ -155,11 +192,11 @@ function appMenu() {
       // 2. ADD (PUSH) THE INTERN VARIABLE TO the teamMembers ARRAY
       // 3. ADD (PUSH) THE INTERN ID TO THE idArray ARRAY
       // 
-​
+
       createTeam();
     });
   }
-​//we are actually writing a file
+//we are actually writing a file
   function buildTeam() {
     // Create the output directory if the output path doesn't exist
     if (!fs.existsSync(OUTPUT_DIR)) {
@@ -167,10 +204,10 @@ function appMenu() {
     }
     fs.writeFileSync(outputPath, render(teamMembers), "utf-8"); //we need the file name and the data. outpath is path reffering to where we want to place our data
   }
-​
+
   createManager();
-​
+
 }
-​
-​
+
+
 appMenu();
